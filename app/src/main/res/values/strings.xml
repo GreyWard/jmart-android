@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">jmart-android</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="registrationRedirect">Don\'t have account?\nClick Here!</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+</resources>
