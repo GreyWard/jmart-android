@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView pesan = findViewById(R.id.textView);
-        pesan.setText(LoginActivity.getLoggedAccount().toString());
+        TextView pesan = findViewById(R.id.pesan);
+        pesan.setText(LoginActivity.getLoggedAccount().name);
     }
 }

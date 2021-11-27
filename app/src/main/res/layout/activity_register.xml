@@ -7,7 +7,7 @@
     tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/register_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.307" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/register_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="0.587" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/register_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"

@@ -18,4 +18,7 @@ public class LoginRequest extends StringRequest{
             params.put("email", email);
             params.put("password", password);
         }
+    public Map<String,String> getParams(){
+        return this.params;
+    }
 }

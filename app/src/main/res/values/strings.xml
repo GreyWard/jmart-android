@@ -6,4 +6,5 @@
     <string name="registrationRedirect">Don\'t have account?\nClick Here!</string>
     <string name="email">Email</string>
     <string name="register">Register</string>
+    <string name="greet">Hello User!</string>
 </resources>
