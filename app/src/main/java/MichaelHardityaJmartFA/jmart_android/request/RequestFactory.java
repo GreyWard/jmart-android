@@ -25,12 +25,7 @@ public class RequestFactory{
             Response.Listener<String> listener,
             Response.ErrorListener errorListener
     ){
-        String url = String.format(URL_FORMAT_PAGE,parentURI);
-        Map<String,String> params = new HashMap<>();
-        params.put("page", String.valueOf(page));
-        params.put("pageSize",String.valueOf(pageSize));
-        return new StringRequest(Request.Method.GET, url, listener, errorListener){
-            public Map<String,String> getParams() {return params;}
-        };
+        String url = String.format(URL_FORMAT_PAGE,parentURI,page,pageSize);
+        return new StringRequest(Request.Method.GET, url, listener, errorListener);
     }
 }
