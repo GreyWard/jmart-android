@@ -6,4 +6,7 @@ public class Account extends Serializable{
     public String name;
     public String password;
     public Store store;
+    public String getId(){
+        return String.valueOf(id);
+    }
 }

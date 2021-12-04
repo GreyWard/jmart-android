@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(LoginActivity.this, "JSON EROR", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Login Failed, check user and password!", Toast.LENGTH_LONG).show();
                 }
             };
             Response.ErrorListener errorListener = error -> Toast.makeText(LoginActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();

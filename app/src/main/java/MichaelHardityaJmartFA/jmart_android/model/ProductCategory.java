@@ -2,6 +2,7 @@ package MichaelHardityaJmartFA.jmart_android.model;
 
 public enum ProductCategory
 {
+    ALL,
     ART_CRAFT,
     AUTOMOTIVE,
     BOOK,
