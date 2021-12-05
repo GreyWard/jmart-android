@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             };
             Response.ErrorListener errorListener = error -> Toast.makeText(LoginActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            LoginRequest loginReq = new LoginRequest(emailText.getText().toString(), passText.getText().toString(), listener, null);
+            LoginRequest loginReq = new LoginRequest(emailText.getText().toString(), passText.getText().toString(), listener, errorListener);
             RequestQueue queues = Volley.newRequestQueue(LoginActivity.this);
             queues.add(loginReq);
         });

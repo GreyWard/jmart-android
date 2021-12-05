@@ -1,6 +1,5 @@
 package MichaelHardityaJmartFA.jmart_android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,8 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
                     JSONObject object = new JSONObject(response);
                     if(object != null){
                         Toast.makeText(RegisterActivity.this,"Register Successful",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
                     }
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -45,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
             RegisterRequest regReq = new RegisterRequest(nameText.getText().toString(), emailText.getText().toString(),passText.getText().toString(),listener,null);
             RequestQueue queues = Volley.newRequestQueue(RegisterActivity.this);
             queues.add(regReq);
+            finish();
         });
     }
 }

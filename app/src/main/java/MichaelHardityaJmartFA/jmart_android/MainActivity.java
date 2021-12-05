@@ -24,22 +24,32 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.JSONArray;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import MichaelHardityaJmartFA.jmart_android.model.Account;
 import MichaelHardityaJmartFA.jmart_android.model.Product;
 import MichaelHardityaJmartFA.jmart_android.model.ProductCategory;
-import MichaelHardityaJmartFA.jmart_android.request.ProductRequest;
+import MichaelHardityaJmartFA.jmart_android.request.RequestFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
-    private static List<Product> products= new ArrayList<>();
+    private static ArrayList<Product> products= new ArrayList<>();
+    private static final ArrayList<String> productNames = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private ListView listView;
+    private EditText name;
+    private EditText minPrice;
+    private EditText maxPrice;
+    private CheckBox conditionUsed;
+    private CheckBox conditionNew;
+    private Spinner catSpinner;
+    private static final String PAGE_FORMAT="%d";
     public static List<Product> getProducts(){
         return products;
     }
@@ -55,15 +65,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //FilterCard
-        EditText name = findViewById(R.id.editTextProductName);
-        EditText minPrice = findViewById(R.id.editTextLowPrice);
-        EditText maxPrice = findViewById(R.id.editTextHighPrice);
-        CheckBox conditionUsed = findViewById(R.id.check_used);
-        CheckBox conditionNew = findViewById(R.id.check_new);
+        name = findViewById(R.id.editTextProductName);
+        minPrice = findViewById(R.id.editTextLowPrice);
+        maxPrice = findViewById(R.id.editTextHighPrice);
+        conditionUsed = findViewById(R.id.check_used);
+        conditionNew = findViewById(R.id.check_new);
         Button apply = findViewById(R.id.button_apply);
         Button clear = findViewById(R.id.button_clear);
-        Spinner catSpinner = (Spinner) findViewById(R.id.category_spinner);
-
+        catSpinner = findViewById(R.id.category_spinner);
         productCard = findViewById(R.id.product_card);
         filterCard = findViewById(R.id.filter_card);
         tabLayout = findViewById(R.id.tabLayout);
@@ -95,170 +104,106 @@ public class MainActivity extends AppCompatActivity {
         Button prev = findViewById(R.id.buttonPrev);
         Button next = findViewById(R.id.buttonNext);
         Button go = findViewById(R.id.buttonGo);
-
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.listview, Collections.singletonList(products.toString()));
-        listView.setAdapter(adapter);
+        listView = findViewById(R.id.list_view);
+        resetFilter();
+        populateListView(0);
+        adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, productNames);
         prev.setOnClickListener(v -> {
-            pageText.setText(Integer.toString(Integer.parseInt(pageText.getText().toString())-1));
-            String page = Integer.toString(Integer.parseInt(pageText.getText().toString())-1);
-            Response.Listener<String> listener = response -> {
-                try {
-                    JSONObject object = new JSONObject(response);
-                    if (object != null) {
-                        products=null;
-                        Toast.makeText(MainActivity.this, "Filtered", Toast.LENGTH_LONG).show();
-                        products.add(gson.fromJson(object.toString(), Product.class));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
-                }
-            };
-            String firstCond = "0";
-            String secCond = "0";
-            if (conditionUsed.isChecked()){
-                firstCond = "1";
-            }
-            if(conditionNew.isChecked()){
-                secCond = "1";
-            }
-            Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            ProductRequest productReq = new ProductRequest();
-            StringRequest prodReq = productReq.ProductRequest("0","10",firstCond, secCond,
-                    name.getText().toString(),minPrice.getText().toString(),maxPrice.getText().toString(),catSpinner.getSelectedItem().toString(),
-                    listener,null);
-            RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
-            queues.add(prodReq);
+            pageText.setText(String.format(PAGE_FORMAT,Integer.parseInt(pageText.getText().toString())-1));
+            int page = Integer.parseInt(pageText.getText().toString())-1;
+            populateListView(page);
         });
         next.setOnClickListener(v -> {
-            pageText.setText(Integer.toString(Integer.parseInt(pageText.getText().toString())+1));
-            String page = Integer.toString(Integer.parseInt(pageText.getText().toString())-1);
-            Response.Listener<String> listener = response -> {
-                try {
-                    JSONObject object = new JSONObject(response);
-                    if (object != null) {
-                        products=null;
-                        Toast.makeText(MainActivity.this, "Filtered", Toast.LENGTH_LONG).show();
-                        products.add(gson.fromJson(object.toString(), Product.class));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
-                }
-            };
-            String firstCond = "0";
-            String secCond = "0";
-            if (conditionUsed.isChecked()){
-                firstCond = "1";
-            }
-            if(conditionNew.isChecked()){
-                secCond = "1";
-            }
-            Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            ProductRequest productReq = new ProductRequest();
-            StringRequest prodReq = productReq.ProductRequest("0","10",firstCond, secCond,
-                    name.getText().toString(),minPrice.getText().toString(),maxPrice.getText().toString(),catSpinner.getSelectedItem().toString(),
-                    listener,null);
-            RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
-            queues.add(prodReq);
+            pageText.setText(String.format(PAGE_FORMAT,Integer.parseInt(pageText.getText().toString())+1));
+            int page = Integer.parseInt(pageText.getText().toString())-1;
+            populateListView(page);
         });
         go.setOnClickListener(v -> {
-            String page = Integer.toString(Integer.parseInt(pageText.getText().toString())-1);
-            Response.Listener<String> listener = response -> {
-                try {
-                    JSONObject object = new JSONObject(response);
-                    if (object != null) {
-                        products=null;
-                        Toast.makeText(MainActivity.this, "Filtered", Toast.LENGTH_LONG).show();
-                        products.add(gson.fromJson(object.toString(), Product.class));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
-                }
-            };
-            String firstCond = "0";
-            String secCond = "0";
-            if (conditionUsed.isChecked()){
-                firstCond = "1";
-            }
-            if(conditionNew.isChecked()){
-                secCond = "1";
-            }
-            Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            ProductRequest productReq = new ProductRequest();
-            StringRequest prodReq = productReq.ProductRequest("0","10",firstCond, secCond,
-                    name.getText().toString(),minPrice.getText().toString(),maxPrice.getText().toString(),catSpinner.getSelectedItem().toString(),
-                    listener,null);
-            RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
-            queues.add(prodReq);
+            int page = Integer.parseInt(pageText.getText().toString())-1;
+            populateListView(page);
+            Toast.makeText(MainActivity.this, "Going to page: "+pageText,Toast.LENGTH_LONG).show();
         });
         //FilterCard
-        catSpinner.setAdapter(new ArrayAdapter<ProductCategory>(this, android.R.layout.simple_spinner_item,ProductCategory.values()));
+        catSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ProductCategory.values()));
         apply.setOnClickListener(v -> {
-            Response.Listener<String> listener = response -> {
-                try {
-                    JSONObject object = new JSONObject(response);
-                    if (object != null) {
-                        products=null;
-                        Toast.makeText(MainActivity.this, "Filtered", Toast.LENGTH_LONG).show();
-                        products.add(gson.fromJson(object.toString(), Product.class));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
-                }
-            };
-            String firstCond = "0";
-            String secCond = "0";
-            if (conditionUsed.isChecked()){
-                firstCond = "1";
-            }
-            if(conditionNew.isChecked()){
-                secCond = "1";
-            }
-            Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            ProductRequest productReq = new ProductRequest();
-            StringRequest prodReq = productReq.ProductRequest("0","10",firstCond, secCond,
-                    name.getText().toString(),minPrice.getText().toString(),maxPrice.getText().toString(),catSpinner.getSelectedItem().toString(),
-                    listener,null);
-            RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
-            queues.add(prodReq);
+            populateListView(0);
+            Toast.makeText(MainActivity.this, "Filtered!",Toast.LENGTH_LONG).show();
             pageText.setText("1");
         });
+        clear.setOnClickListener(v -> {
+            resetFilter();
+            populateListView(0);
+            Toast.makeText(MainActivity.this, "Cleared!",Toast.LENGTH_LONG).show();
+        });
     }
-
+    public void resetFilter(){
+        name.setText("");
+        minPrice.setText("0");
+        maxPrice.setText("0");
+        conditionNew.setChecked(false);
+        conditionUsed.setChecked(false);
+    }
+    public void populateListView(int page){
+        Response.Listener<String> listener = response -> {
+            try {
+                products=null;
+                JSONArray jsonArray = new JSONArray(response);
+                Type type = new TypeToken<ArrayList<Product>>(){}.getType();
+                products = gson.fromJson(String.valueOf(jsonArray), type);
+                takeName(products);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
+            }
+        };
+        try{
+            Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+            StringRequest prodReq = RequestFactory.getProduct(page,10,conditionUsed.isChecked(), conditionNew.isChecked(),
+                    name.getText().toString(),minPrice.getText().toString(),maxPrice.getText().toString(),catSpinner.getSelectedItem().toString(),
+                    listener,errorListener);
+            RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
+            queues.add(prodReq);
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Please input all the necessary fields!",Toast.LENGTH_LONG).show();
+        }
+    }
+    public void takeName(ArrayList<Product> item){
+        productNames.clear();
+        for (int i = 0; i < item.size(); i++){
+            productNames.add(item.get(i).name);
+        }
+        listView.setAdapter(adapter);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu,menu);
-        if(logged.store !=null){
-            menu.findItem(R.id.create_product).setVisible(true);
-        } else{
-            menu.findItem(R.id.create_product).setVisible(false);
-        }
+        menu.findItem(R.id.create_product).setVisible(logged.store != null);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
-        switch(item.getItemId()){
-            case R.id.search:
-                Toast.makeText(this,"use the filter tab pls",Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.create_product:
-                Toast.makeText(this,"Creating Product",Toast.LENGTH_SHORT).show();
-                intent = new Intent(MainActivity.this, CreateProductActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.profile:
-                Toast.makeText(this,"Opening Profile", Toast.LENGTH_SHORT).show();
-                intent = new Intent(MainActivity.this, AboutMeActivity.class);
-                startActivity(intent);
-                return true;
+        if(item.getItemId() == R.id.search) {
+            Toast.makeText(this, "use the filter tab pls", Toast.LENGTH_SHORT).show();
+            return true;
         }
-        return super.onOptionsItemSelected(item);
+        else if (item.getItemId() == R.id.create_product) {
+            Toast.makeText(this,"Creating Product",Toast.LENGTH_SHORT).show();
+            intent = new Intent(MainActivity.this, CreateProductActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (item.getItemId() == R.id.profile){
+            Toast.makeText(this,"Opening Profile", Toast.LENGTH_SHORT).show();
+            intent = new Intent(MainActivity.this, AboutMeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else{
+            throw new IllegalStateException("Unexpected value: " + item.getItemId());
+        }
     }
 }

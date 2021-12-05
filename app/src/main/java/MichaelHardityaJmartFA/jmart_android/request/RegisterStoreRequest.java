@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterStoreRequest extends StringRequest {
-    private static final String URL = "http://10.0.2.2:8080/account/%s/registerStore";
+    private static final String URL = "http://10.0.2.2:8080/account/%d/registerStore";
     private final Map<String,String> params;
-    public RegisterStoreRequest(String id, String name, String address, String phoneNumber,
+    public RegisterStoreRequest(int id, String name, String address, String phoneNumber,
                            Response.Listener<String> listener, Response.ErrorListener errorListener){
         super(Method.POST, String.format(URL,id), listener, errorListener);
         params =  new HashMap<>();

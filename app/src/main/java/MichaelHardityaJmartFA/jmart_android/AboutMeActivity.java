@@ -1,5 +1,6 @@
 package MichaelHardityaJmartFA.jmart_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -81,15 +82,15 @@ public class AboutMeActivity extends AppCompatActivity {
                     Toast.makeText(AboutMeActivity.this, "Register Error", Toast.LENGTH_LONG).show();
                 }
             };
-            RegisterStoreRequest regReq = new RegisterStoreRequest(logged.getId(),RegStoreName.getText().toString(), RegStoreAddress.getText().toString(),
+            RegisterStoreRequest regReq = new RegisterStoreRequest(logged.id,RegStoreName.getText().toString(), RegStoreAddress.getText().toString(),
                     RegStorePhone.getText().toString(),listener,null);
             RequestQueue queues = Volley.newRequestQueue(AboutMeActivity.this);
             queues.add(regReq);
             StoreInfo.setVisibility(View.VISIBLE);
             RegisterStoreConst.setVisibility(View.GONE);
-            storeName.setText(logged.store.name);
-            storeAddress.setText(logged.store.address);
-            storePhone.setText(logged.store.phoneNumber);
+            Toast.makeText(AboutMeActivity.this,"Store Registered, Please log in again to confirm!",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(AboutMeActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 }

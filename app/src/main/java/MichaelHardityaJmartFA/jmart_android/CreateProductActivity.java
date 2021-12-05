@@ -40,9 +40,9 @@ public class CreateProductActivity extends AppCompatActivity {
         create.setOnClickListener(v -> {
             Response.Listener<String> listener = response -> {
                 try {
-                        Toast.makeText(CreateProductActivity.this, "Product Created!", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(CreateProductActivity.this, MainActivity.class);
-                        startActivity(intent);
+                    Toast.makeText(CreateProductActivity.this, "Product Created!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(CreateProductActivity.this, MainActivity.class);startActivity(intent);
+                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(CreateProductActivity.this, "Creation Failed", Toast.LENGTH_LONG).show();
@@ -69,8 +69,7 @@ public class CreateProductActivity extends AppCompatActivity {
         });
         cancel.setOnClickListener(v -> {
             Toast.makeText(CreateProductActivity.this,"Cancelled",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CreateProductActivity.this, MainActivity.class);
-            startActivity(intent);
+            finish();
         });
     }
 }
