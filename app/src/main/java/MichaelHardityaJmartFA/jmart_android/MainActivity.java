@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -50,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox conditionNew;
     private Spinner catSpinner;
     private static final String PAGE_FORMAT="%d";
+    private static int selectedPosition;
     public static List<Product> getProducts(){
         return products;
     }
+    public static Product getSelectedProduct(){return products.get(selectedPosition);}
     //checking account
     Account logged = LoginActivity.getLoggedAccount();
     private TabLayout tabLayout;
@@ -108,6 +111,14 @@ public class MainActivity extends AppCompatActivity {
         resetFilter();
         populateListView(0);
         adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, productNames);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedPosition = position;
+                Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+                startActivity(intent);
+            }
+        });
         prev.setOnClickListener(v -> {
             pageText.setText(String.format(PAGE_FORMAT,Integer.parseInt(pageText.getText().toString())-1));
             int page = Integer.parseInt(pageText.getText().toString())-1;

@@ -41,7 +41,6 @@ public class CreateProductActivity extends AppCompatActivity {
             Response.Listener<String> listener = response -> {
                 try {
                     Toast.makeText(CreateProductActivity.this, "Product Created!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(CreateProductActivity.this, MainActivity.class);startActivity(intent);
                     finish();
                 } catch (Exception e) {
                     e.printStackTrace();

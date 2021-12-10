@@ -89,8 +89,7 @@ public class AboutMeActivity extends AppCompatActivity {
             StoreInfo.setVisibility(View.VISIBLE);
             RegisterStoreConst.setVisibility(View.GONE);
             Toast.makeText(AboutMeActivity.this,"Store Registered, Please log in again to confirm!",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(AboutMeActivity.this, LoginActivity.class);
-            startActivity(intent);
+            finish();
         });
     }
 }
