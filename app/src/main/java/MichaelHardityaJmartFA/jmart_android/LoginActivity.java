@@ -23,10 +23,12 @@ import MichaelHardityaJmartFA.jmart_android.request.LoginRequest;
 public class LoginActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     private static Account loggedAccount=null;
+    public static String email;
+    public static String pass;
     public static Account getLoggedAccount(){
         return loggedAccount;
     }
-
+    public static void resetLoggedAccount(Account account){ loggedAccount = account;};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +53,12 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login Failed, check user and password!", Toast.LENGTH_LONG).show();
                 }
             };
+            email = emailText.getText().toString();
+            pass = passText.getText().toString();
             Response.ErrorListener errorListener = error -> Toast.makeText(LoginActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
             LoginRequest loginReq = new LoginRequest(emailText.getText().toString(), passText.getText().toString(), listener, errorListener);
             RequestQueue queues = Volley.newRequestQueue(LoginActivity.this);
             queues.add(loginReq);
         });
-
     }
 }

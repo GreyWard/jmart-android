@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,6 +27,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,10 +37,12 @@ import java.util.List;
 import MichaelHardityaJmartFA.jmart_android.model.Account;
 import MichaelHardityaJmartFA.jmart_android.model.Product;
 import MichaelHardityaJmartFA.jmart_android.model.ProductCategory;
+import MichaelHardityaJmartFA.jmart_android.request.LoginRequest;
 import MichaelHardityaJmartFA.jmart_android.request.RequestFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
+    private static Account relog = null;
     private static ArrayList<Product> products= new ArrayList<>();
     private static final ArrayList<String> productNames = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -51,10 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox conditionNew;
     private Spinner catSpinner;
     private static final String PAGE_FORMAT="%d";
-    private static int selectedPosition;
-    public static List<Product> getProducts(){
-        return products;
-    }
+    public static int selectedPosition;
+    public static List<Product> getProducts(){return products; }
     public static Product getSelectedProduct(){return products.get(selectedPosition);}
     //checking account
     Account logged = LoginActivity.getLoggedAccount();
@@ -111,13 +112,10 @@ public class MainActivity extends AppCompatActivity {
         resetFilter();
         populateListView(0);
         adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, productNames);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedPosition = position;
-                Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            selectedPosition = position;
+            Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+            startActivity(intent);
         });
         prev.setOnClickListener(v -> {
             pageText.setText(String.format(PAGE_FORMAT,Integer.parseInt(pageText.getText().toString())-1));
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         go.setOnClickListener(v -> {
             int page = Integer.parseInt(pageText.getText().toString())-1;
             populateListView(page);
-            Toast.makeText(MainActivity.this, "Going to page: "+pageText,Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Going to page: "+pageText.getText(),Toast.LENGTH_LONG).show();
         });
         //FilterCard
         catSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ProductCategory.values()));
@@ -157,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     public void populateListView(int page){
         Response.Listener<String> listener = response -> {
             try {
-                products=null;
+                products.clear();
                 JSONArray jsonArray = new JSONArray(response);
                 Type type = new TypeToken<ArrayList<Product>>(){}.getType();
                 products = gson.fromJson(String.valueOf(jsonArray), type);

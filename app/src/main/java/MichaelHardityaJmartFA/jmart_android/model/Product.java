@@ -13,4 +13,7 @@ public class Product extends Serializable{
     public String toString(){
         return (name);
     }
+    public String getId(){
+        return String.valueOf(id);
+    }
 }
