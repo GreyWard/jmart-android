@@ -42,7 +42,6 @@ import MichaelHardityaJmartFA.jmart_android.request.RequestFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
-    private static Account relog = null;
     private static ArrayList<Product> products= new ArrayList<>();
     private static final ArrayList<String> productNames = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         productCard = findViewById(R.id.product_card);
         filterCard = findViewById(R.id.filter_card);
         tabLayout = findViewById(R.id.tabLayout);
+        resetFilter();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -109,9 +109,8 @@ public class MainActivity extends AppCompatActivity {
         Button next = findViewById(R.id.buttonNext);
         Button go = findViewById(R.id.buttonGo);
         listView = findViewById(R.id.list_view);
-        resetFilter();
-        populateListView(0);
         adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, productNames);
+        populateListView(0);
         listView.setOnItemClickListener((parent, view, position, id) -> {
             selectedPosition = position;
             Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
@@ -214,5 +213,26 @@ public class MainActivity extends AppCompatActivity {
         else{
             throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Response.Listener<String> listener = response -> {
+            try {
+                JSONObject object = new JSONObject(response);
+                if (object != null) {
+                    LoginActivity.resetLoggedAccount(gson.fromJson(object.toString(), Account.class));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "Re-Login failed, please Login again!", Toast.LENGTH_LONG).show();
+            }
+        };
+        Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+        LoginRequest loginReq = new LoginRequest(LoginActivity.email, LoginActivity.pass, listener, errorListener);
+        RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
+        queues.add(loginReq);
     }
 }

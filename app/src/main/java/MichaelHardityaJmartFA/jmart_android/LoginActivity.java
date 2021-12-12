@@ -28,7 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     public static Account getLoggedAccount(){
         return loggedAccount;
     }
-    public static void resetLoggedAccount(Account account){ loggedAccount = account;};
+    public static void resetLoggedAccount(Account account){ loggedAccount = account;}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

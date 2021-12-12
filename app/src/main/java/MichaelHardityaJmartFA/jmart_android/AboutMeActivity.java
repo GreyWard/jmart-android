@@ -1,6 +1,5 @@
 package MichaelHardityaJmartFA.jmart_android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import org.json.JSONObject;
 
 import MichaelHardityaJmartFA.jmart_android.model.Account;
 import MichaelHardityaJmartFA.jmart_android.request.RegisterStoreRequest;
+import MichaelHardityaJmartFA.jmart_android.request.TopUpRequest;
 
 public class AboutMeActivity extends AppCompatActivity {
 
@@ -90,6 +90,25 @@ public class AboutMeActivity extends AppCompatActivity {
             RegisterStoreConst.setVisibility(View.GONE);
             Toast.makeText(AboutMeActivity.this,"Store Registered, Please log in again to confirm!",Toast.LENGTH_LONG).show();
             finish();
+        });
+        EditText couponCode = findViewById(R.id.editTextTopUp);
+        Button topUp = findViewById(R.id.buttonTopUp);
+        topUp.setOnClickListener(v -> {
+            Response.Listener<String> listener = response -> {
+                try{
+                    JSONObject object = new JSONObject(response);
+                    if(object != null){
+                        Toast.makeText(AboutMeActivity.this,"TopUp Successful!",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                    Toast.makeText(AboutMeActivity.this, "TopUp failed, check again later.", Toast.LENGTH_LONG).show();
+                }
+            };
+            TopUpRequest topUpReq = new TopUpRequest(logged.id,couponCode.getText().toString(),listener,null);
+            RequestQueue queues = Volley.newRequestQueue(AboutMeActivity.this);
+            queues.add(topUpReq);
         });
     }
 }
