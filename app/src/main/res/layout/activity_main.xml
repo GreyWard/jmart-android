@@ -54,12 +54,15 @@
                 app:layout_constraintVertical_bias="0.03" />
 
             <ListView
-                android:id="@+id/list_view"
+                android:id="@+id/product_listview"
                 android:layout_width="411dp"
                 android:layout_height="444dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="1.0" />
 
             <Button
                 android:id="@+id/buttonPrev"
@@ -70,7 +73,7 @@
                 android:layout_marginEnd="7dp"
                 android:layout_marginBottom="14dp"
                 android:text="Prev"
-                app:layout_constraintBottom_toTopOf="@+id/list_view"
+                app:layout_constraintBottom_toTopOf="@+id/product_listview"
                 app:layout_constraintEnd_toStartOf="@+id/buttonNext"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -83,7 +86,7 @@
                 android:layout_marginEnd="90dp"
                 android:layout_marginBottom="14dp"
                 android:text="Next"
-                app:layout_constraintBottom_toTopOf="@+id/list_view"
+                app:layout_constraintBottom_toTopOf="@+id/product_listview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.515"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +102,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="14dp"
                 android:text="Go!"
-                app:layout_constraintBottom_toTopOf="@+id/list_view"
+                app:layout_constraintBottom_toTopOf="@+id/product_listview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/buttonNext"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -115,7 +118,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="1"
-                app:layout_constraintBottom_toTopOf="@+id/list_view"
+                app:layout_constraintBottom_toTopOf="@+id/product_listview"
                 app:layout_constraintEnd_toStartOf="@+id/buttonGo"
                 app:layout_constraintStart_toEndOf="@+id/buttonNext"
                 app:layout_constraintTop_toTopOf="parent" />

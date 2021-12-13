@@ -1,5 +1,6 @@
 package MichaelHardityaJmartFA.jmart_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +49,7 @@ public class AboutMeActivity extends AppCompatActivity {
         Button RegisterStoreButton = findViewById(R.id.buttonRegisterStoreMenu);
         Button RegisterStore = findViewById(R.id.buttonRegisterStore);
         Button RegisterCancel = findViewById(R.id.buttonRegisterStoreCancel);
+        Button checkOrders = findViewById(R.id.button_orders_activity);
         if (logged.store == null) {
             RegisterCard.setVisibility(View.GONE);
             RegisterStoreButton.setVisibility(View.VISIBLE);
@@ -110,5 +112,6 @@ public class AboutMeActivity extends AppCompatActivity {
             RequestQueue queues = Volley.newRequestQueue(AboutMeActivity.this);
             queues.add(topUpReq);
         });
+        checkOrders.setOnClickListener(v -> startActivity(new Intent(AboutMeActivity.this,StoreOrderActivity.class)));
     }
 }

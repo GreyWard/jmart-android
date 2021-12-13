@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InvoiceHistoryActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/invoice_status_detail"
+        android:layout_width="403dp"
+        android:layout_height="592dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/label_status_confirmation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirmation"
+                app:layout_constraintBottom_toTopOf="@+id/invoice_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.071"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/label_status_on_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On Progress"
+                app:layout_constraintBottom_toTopOf="@+id/invoice_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.555" />
+
+            <TextView
+                android:id="@+id/label_status_on_delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On Delivery"
+                app:layout_constraintBottom_toTopOf="@+id/invoice_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/label_status_delivered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivered"
+                app:layout_constraintBottom_toTopOf="@+id/invoice_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.726"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.555" />
+
+            <TextView
+                android:id="@+id/label_status_finished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finished"
+                app:layout_constraintBottom_toTopOf="@+id/invoice_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.934"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ProgressBar
+                android:id="@+id/invoice_progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="357dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.109" />
+
+            <TextView
+                android:id="@+id/invoice_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/_1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.029"
+                app:layout_constraintStart_toEndOf="@+id/label_invoice_id"
+                app:layout_constraintTop_toBottomOf="@+id/status_listview"
+                app:layout_constraintVertical_bias="0.073" />
+
+            <TextView
+                android:id="@+id/invoice_product_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/_1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.013"
+                app:layout_constraintStart_toEndOf="@+id/label_invoice_product_id"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_id"
+                app:layout_constraintVertical_bias="0.043" />
+
+            <TextView
+                android:id="@+id/invoice_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/_1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.057"
+                app:layout_constraintStart_toEndOf="@+id/label_invoice_product_count"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_product_id"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/invoice_product_shipmentplan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="By Something"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toEndOf="@+id/label_invoice_shipment_plan"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_product_count"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/invoice_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Somewhere"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toEndOf="@+id/label_invoice_shipment_plan"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_product_count"
+                app:layout_constraintVertical_bias="0.235" />
+
+            <TextView
+                android:id="@+id/label_invoice_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invoice ID:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.073"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_listview"
+                app:layout_constraintVertical_bias="0.073" />
+
+            <TextView
+                android:id="@+id/label_invoice_product_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product ID:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/invoice_id"
+                app:layout_constraintHorizontal_bias="0.862"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_invoice_id"
+                app:layout_constraintVertical_bias="0.043" />
+
+            <TextView
+                android:id="@+id/label_invoice_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/invoice_id"
+                app:layout_constraintHorizontal_bias="0.581"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_invoice_product_id"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/label_invoice_shipment_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/invoice_id"
+                app:layout_constraintHorizontal_bias="0.568"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_invoice_product_count"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/label_invoice_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/invoice_id"
+                app:layout_constraintHorizontal_bias="0.316"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_invoice_shipment_plan"
+                app:layout_constraintVertical_bias="0.071" />
+
+            <TextView
+                android:id="@+id/invoice_status_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invoice Status"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_progressbar"
+                app:layout_constraintVertical_bias="0.039" />
+
+            <ListView
+                android:id="@+id/status_listview"
+                android:layout_width="401dp"
+                android:layout_height="194dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_status_message"
+                app:layout_constraintVertical_bias="0.053" />
+
+            <Button
+                android:id="@+id/button_back_to_invoice_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_listview"
+                app:layout_constraintVertical_bias="0.852" />
+
+            <Button
+                android:id="@+id/button_receipt_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="112dp"
+                android:text="Receipt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.475"
+                app:layout_constraintStart_toEndOf="@+id/button_back_to_invoice_list"
+                app:layout_constraintTop_toBottomOf="@+id/status_listview"
+                app:layout_constraintVertical_bias="0.852" />
+
+            <Button
+                android:id="@+id/button_cancel_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_receipt_activity"
+                app:layout_constraintHorizontal_bias="0.534"
+                app:layout_constraintStart_toEndOf="@+id/button_back_to_invoice_list"
+                app:layout_constraintTop_toBottomOf="@+id/status_listview"
+                app:layout_constraintVertical_bias="0.852" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <ListView
+        android:id="@+id/invoice_listview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+    </ListView>
+</androidx.constraintlayout.widget.ConstraintLayout>

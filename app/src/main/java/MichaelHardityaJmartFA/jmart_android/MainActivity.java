@@ -108,21 +108,46 @@ public class MainActivity extends AppCompatActivity {
         Button prev = findViewById(R.id.buttonPrev);
         Button next = findViewById(R.id.buttonNext);
         Button go = findViewById(R.id.buttonGo);
-        listView = findViewById(R.id.list_view);
+        listView = findViewById(R.id.product_listview);
         adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, productNames);
-        populateListView(0);
+        Response.Listener<String> listener = response -> {
+            try {
+                products.clear();
+                JSONArray jsonArray = new JSONArray(response);
+                Type type = new TypeToken<ArrayList<Product>>(){}.getType();
+                products = gson.fromJson(String.valueOf(jsonArray), type);
+                productNames.clear();
+                for (int i = 0; i < products.size(); i++){
+                    productNames.add(products.get(i).name);
+                }
+                listView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
+            }
+        };
+        try{
+            Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+            StringRequest prodReq = RequestFactory.getProduct(0,10,false, false,
+                    "","0","0","ALL", listener,errorListener);
+            RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
+            queues.add(prodReq);
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Please input all the necessary fields!",Toast.LENGTH_LONG).show();
+        }
         listView.setOnItemClickListener((parent, view, position, id) -> {
             selectedPosition = position;
             Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
             startActivity(intent);
         });
         prev.setOnClickListener(v -> {
-            pageText.setText(String.format(PAGE_FORMAT,Integer.parseInt(pageText.getText().toString())-1));
+            pageText.setText(String.format("%d",Integer.parseInt(pageText.getText().toString())-1));
             int page = Integer.parseInt(pageText.getText().toString())-1;
             populateListView(page);
         });
         next.setOnClickListener(v -> {
-            pageText.setText(String.format(PAGE_FORMAT,Integer.parseInt(pageText.getText().toString())+1));
+            pageText.setText(String.format("%d",Integer.parseInt(pageText.getText().toString())+1));
             int page = Integer.parseInt(pageText.getText().toString())-1;
             populateListView(page);
         });
@@ -201,6 +226,12 @@ public class MainActivity extends AppCompatActivity {
         else if (item.getItemId() == R.id.create_product) {
             Toast.makeText(this,"Creating Product",Toast.LENGTH_SHORT).show();
             intent = new Intent(MainActivity.this, CreateProductActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (item.getItemId() == R.id.invoice_history){
+            Toast.makeText(this,"Opening History", Toast.LENGTH_SHORT).show();
+            intent = new Intent(MainActivity.this, InvoiceHistoryActivity.class);
             startActivity(intent);
             return true;
         }

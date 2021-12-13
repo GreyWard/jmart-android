@@ -5,15 +5,20 @@
         android:title ="Search"
         android:icon ="@drawable/ic_baseline_search_24"
         android:iconTint="@color/white"
-        app:showAsAction = "ifRoom"/>
+        app:showAsAction = "always"/>
+    <item android:id="@+id/invoice_history"
+        android:title="Invoice History"
+        android:icon="@drawable/ic_baseline_receipt_long_24"
+        android:iconTint="@color/white"
+        app:showAsAction="always"/>
     <item android:id = "@+id/create_product"
         android:title ="Create Product"
         android:icon ="@drawable/ic_baseline_add_box_24"
         android:iconTint="@color/white"
-        app:showAsAction = "ifRoom"/>
+        app:showAsAction = "always"/>
     <item android:id = "@+id/profile"
         android:title ="Profile"
         android:icon ="@drawable/ic_baseline_person_24"
         android:iconTint="@color/white"
-        app:showAsAction = "ifRoom"/>
+        app:showAsAction = "always"/>
 </menu>
