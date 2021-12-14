@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".InvoiceHistoryActivity">
 
+    <TextView
+        android:id="@+id/label_blank_invoice"
+        android:layout_width="336dp"
+        android:layout_height="107dp"
+        android:gravity="center"
+        android:text="Tidak ada yang dapat ditampilkan sekarang, yuk beli sesuatu!"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/invoice_status_detail"
         android:layout_width="403dp"

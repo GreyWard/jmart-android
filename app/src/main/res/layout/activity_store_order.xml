@@ -7,7 +7,305 @@
     tools:context=".StoreOrderActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/product_card"
+        android:id="@+id/order_detail_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/order_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/label_status_confirmation_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirmation"
+                app:layout_constraintBottom_toTopOf="@+id/order_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.071"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/label_status_on_progress_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On Progress"
+                app:layout_constraintBottom_toTopOf="@+id/order_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.555" />
+
+            <TextView
+                android:id="@+id/label_status_on_delivery_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On Delivery"
+                app:layout_constraintBottom_toTopOf="@+id/order_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/label_status_delivered_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivered"
+                app:layout_constraintBottom_toTopOf="@+id/order_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.726"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.555" />
+
+            <TextView
+                android:id="@+id/label_status_finished_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finished"
+                app:layout_constraintBottom_toTopOf="@+id/order_progressbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.934"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ProgressBar
+                android:id="@+id/order_progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="357dp"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.109" />
+
+            <TextView
+                android:id="@+id/order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/_1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.029"
+                app:layout_constraintStart_toEndOf="@+id/label_order_id"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_listview"
+                app:layout_constraintVertical_bias="0.073" />
+
+            <TextView
+                android:id="@+id/order_product_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/_1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.013"
+                app:layout_constraintStart_toEndOf="@+id/label_order_product_id"
+                app:layout_constraintTop_toBottomOf="@+id/order_id"
+                app:layout_constraintVertical_bias="0.043" />
+
+            <TextView
+                android:id="@+id/order_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/_1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.057"
+                app:layout_constraintStart_toEndOf="@+id/label_order_product_count"
+                app:layout_constraintTop_toBottomOf="@+id/order_product_id"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/order_product_shipmentplan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="By Something"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toEndOf="@+id/label_order_shipment_plan"
+                app:layout_constraintTop_toBottomOf="@+id/order_product_count"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/order_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Somewhere"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toEndOf="@+id/label_order_shipment_plan"
+                app:layout_constraintTop_toBottomOf="@+id/order_product_count"
+                app:layout_constraintVertical_bias="0.235" />
+
+            <TextView
+                android:id="@+id/label_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invoice ID:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.073"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_listview"
+                app:layout_constraintVertical_bias="0.073" />
+
+            <TextView
+                android:id="@+id/label_order_product_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product ID:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/order_id"
+                app:layout_constraintHorizontal_bias="0.862"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_order_id"
+                app:layout_constraintVertical_bias="0.043" />
+
+            <TextView
+                android:id="@+id/label_order_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/order_id"
+                app:layout_constraintHorizontal_bias="0.581"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_order_product_id"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/label_order_shipment_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivery:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/order_id"
+                app:layout_constraintHorizontal_bias="0.568"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_order_product_count"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <TextView
+                android:id="@+id/label_order_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/order_id"
+                app:layout_constraintHorizontal_bias="0.316"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_order_shipment_plan"
+                app:layout_constraintVertical_bias="0.071" />
+
+            <TextView
+                android:id="@+id/order_status_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invoice Status"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_progressbar"
+                app:layout_constraintVertical_bias="0.039" />
+
+            <ListView
+                android:id="@+id/order_status_listview"
+                android:layout_width="401dp"
+                android:layout_height="194dp"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_message"
+                app:layout_constraintVertical_bias="0.053" />
+
+            <Button
+                android:id="@+id/button_back_to_order_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.079"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_listview"
+                app:layout_constraintVertical_bias="0.852" />
+
+            <Button
+                android:id="@+id/button_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="112dp"
+                android:text="Accept"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.475"
+                app:layout_constraintStart_toEndOf="@+id/button_back_to_order_list"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_listview"
+                app:layout_constraintVertical_bias="0.852" />
+
+            <Button
+                android:id="@+id/button_cancel_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_accept"
+                app:layout_constraintHorizontal_bias="0.534"
+                app:layout_constraintStart_toEndOf="@+id/button_back_to_order_list"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_listview"
+                app:layout_constraintVertical_bias="0.852" />
+
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="95dp"
+                android:layout_height="48dp"
+                android:text="Submit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.394"
+                app:layout_constraintStart_toEndOf="@+id/button_cancel_order"
+                app:layout_constraintTop_toBottomOf="@+id/order_status_listview"
+                app:layout_constraintVertical_bias="0.842" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/order_card"
         android:layout_width="408dp"
         android:layout_height="608dp"
         android:layout_marginTop="1dp"
@@ -31,7 +329,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0">
+
+            </ListView>
 
             <Button
                 android:id="@+id/button_order_prev"

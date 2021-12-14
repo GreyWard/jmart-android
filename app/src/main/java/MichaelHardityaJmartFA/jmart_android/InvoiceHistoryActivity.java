@@ -77,6 +77,7 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         Button back = findViewById(R.id.button_back_to_invoice_list);
         Button cancel = findViewById(R.id.button_cancel_invoice);
         Button receipt = findViewById(R.id.button_receipt_activity);
+        TextView labelBlank = findViewById(R.id.label_blank_invoice);
         statusAdapter = new ArrayAdapter<>(getApplicationContext(),R.layout.listview,paymentStatus);
         resetDetails();
         Response.Listener<String> listener = response -> {
@@ -101,6 +102,9 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(InvoiceHistoryActivity.this, "Please input all the necessary fields!",Toast.LENGTH_LONG).show();
+        }
+        if(payments.size() == 0){
+            labelBlank.setVisibility(View.VISIBLE);
         }
         invoicesList.setOnItemClickListener((parent, view, position, id) -> {
             invoiceDetail.setVisibility(View.VISIBLE);

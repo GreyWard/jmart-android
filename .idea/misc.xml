@@ -8,9 +8,9 @@
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19895833333333332" />
-        <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_about_me.xml" value="0.2" />
+        <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_about_me.xml" value="0.536" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_create_product.xml" value="0.2796296296296296" />
-        <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_invoice_history.xml" value="0.171875" />
+        <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_invoice_history.xml" value="0.4" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_listview.xml" value="0.1" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_main.xml" value="0.27546296296296297" />
@@ -18,7 +18,7 @@
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_product_detail.xml" value="0.536" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_receipt.xml" value="0.15625" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_register.xml" value="0.275" />
-        <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_store_order.xml" value="0.264" />
+        <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/activity_store_order.xml" value="0.34787735849056606" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/fragment_f_ilter.xml" value="0.1" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/fragment_filter.xml" value="0.32325581395348835" />
         <entry key="..\:/AndroidProject/jmart_android/app/src/main/res/layout/fragment_main.xml" value="0.1" />

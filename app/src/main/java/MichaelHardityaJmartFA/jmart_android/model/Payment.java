@@ -11,12 +11,17 @@ public class Payment extends Invoice{
 
     @Override
     public String toString() {
-        return " "+productName;
+        return productName + " " + productCount + " " + status + " " + date.toString();
     }
 
     public class Record {
         public Date date;
         public String message;
         public Invoice.Status status;
+
+        @Override
+        public String toString() {
+            return  " "+ status + " " + date;
+        }
     }
 }

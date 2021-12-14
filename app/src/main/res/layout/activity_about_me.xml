@@ -266,39 +266,39 @@
 
                     <TextView
                         android:id="@+id/storename_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="191dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="Name"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.914"
+                        app:layout_constraintHorizontal_bias="0.834"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.214" />
 
                     <TextView
                         android:id="@+id/address_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="188dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="Name"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.914"
+                        app:layout_constraintHorizontal_bias="0.837"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.38" />
 
                     <TextView
                         android:id="@+id/phone_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="178dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="Name"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.914"
+                        app:layout_constraintHorizontal_bias="0.846"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.558" />
