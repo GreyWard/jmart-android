@@ -2,6 +2,9 @@ package MichaelHardityaJmartFA.jmart_android.model;
 
 import java.util.Date;
 
+/**
+ * Invoice class, stores invoice information such as identifiers (buyer, product, complaint, and invoice), rating, date, and status.
+ */
 public abstract class Invoice extends Serializable {
     enum Rating {
         NONE,

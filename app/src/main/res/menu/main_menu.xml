@@ -5,7 +5,8 @@
         android:title ="Search"
         android:icon ="@drawable/ic_baseline_search_24"
         android:iconTint="@color/white"
-        app:showAsAction = "always"/>
+        app:showAsAction = "always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item android:id="@+id/invoice_history"
         android:title="Invoice History"
         android:icon="@drawable/ic_baseline_receipt_long_24"

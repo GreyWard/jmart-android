@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import MichaelHardityaJmartFA.jmart_android.model.Plans;
 import MichaelHardityaJmartFA.jmart_android.model.Product;
 
+/**
+ * Product detail activity, shows a product detail selected in product list, can be purchased via this activity
+ */
 public class ProductDetailActivity extends AppCompatActivity {
 
     @Override
@@ -18,7 +21,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         Product selected = MainActivity.getSelectedProduct();
-        //now we proccess the selected data
         TextView productName = findViewById(R.id.product_name);
         TextView productCategory = findViewById(R.id.product_category);
         TextView productCondition = findViewById(R.id.product_condition);

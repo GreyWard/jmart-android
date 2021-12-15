@@ -21,6 +21,9 @@ import org.json.JSONObject;
 import MichaelHardityaJmartFA.jmart_android.model.Account;
 import MichaelHardityaJmartFA.jmart_android.request.CreateProductRequest;
 
+/**
+ * Create product activity, to create new product, all fields must be entered to create a new one
+ */
 public class CreateProductActivity extends AppCompatActivity {
     private final Account logged = LoginActivity.getLoggedAccount();
     @Override

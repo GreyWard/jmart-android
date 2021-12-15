@@ -16,6 +16,9 @@ import org.json.JSONObject;
 
 import MichaelHardityaJmartFA.jmart_android.request.RegisterRequest;
 
+/**
+ * Register activity, used to register a new account
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     @Override

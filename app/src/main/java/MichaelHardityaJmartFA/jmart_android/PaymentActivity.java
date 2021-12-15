@@ -24,6 +24,9 @@ import MichaelHardityaJmartFA.jmart_android.model.Plans;
 import MichaelHardityaJmartFA.jmart_android.model.Product;
 import MichaelHardityaJmartFA.jmart_android.request.PaymentRequest;
 
+/**
+ * Payment activity, the activity to confirm and review a purchase, and purchase it
+ */
 public class PaymentActivity extends AppCompatActivity {
     private final Product selectedProduct = MainActivity.getSelectedProduct();
     private final Account selectedAccount = LoginActivity.getLoggedAccount();
@@ -53,13 +56,33 @@ public class PaymentActivity extends AppCompatActivity {
         TextView balance = findViewById(R.id.account_buy_balance);
         TextView total = findViewById(R.id.total_buy_fee);
         TextView minus = findViewById(R.id.balance_not_enough);
+        Button checkOut = findViewById(R.id.button_checkout);
         total.setText(String.valueOf(PaymentAlgorithm.getAdjustedPrice(selectedProduct.price,selectedProduct.discount)));
-        double counted =selectedAccount.balance-PaymentAlgorithm.getAdjustedPrice(selectedProduct.price,selectedProduct.discount);
-        balance.setText(String.valueOf(counted));
+        final double[] counted = {selectedAccount.balance - PaymentAlgorithm.getAdjustedPrice(selectedProduct.price, selectedProduct.discount) * Integer.parseInt(quantity.getText().toString())};
+        balance.setText(String.valueOf(counted[0]));
+        quantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    counted[0] =selectedAccount.balance-PaymentAlgorithm.getAdjustedPrice(selectedProduct.price,selectedProduct.discount)*Integer.parseInt(quantity.getText().toString());
+                    balance.setText(String.valueOf(counted[0]));
+                    if (counted[0] < 0){
+                        balance.setTextColor(Color.RED);
+                        minus.setVisibility(View.VISIBLE);
+                        checkOut.setClickable(false);
+                        checkOut.setBackgroundColor(Color.GRAY);
+                    } else{
+                        balance.setTextColor(Color.BLACK);
+                        minus.setVisibility(View.GONE);
+                        checkOut.setClickable(true);
+                        checkOut.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                    }
+                }
+            }
+        });
         EditText address = findViewById(R.id.product_buy_address);
         Button cancel = findViewById(R.id.button_cancel_buy);
         cancel.setOnClickListener(v -> finish());
-        Button checkOut = findViewById(R.id.button_checkout);
         checkOut.setOnClickListener(v -> {
             Response.Listener<String> listener = response -> {
                 try {
@@ -79,11 +102,5 @@ public class PaymentActivity extends AppCompatActivity {
             RequestQueue queues = Volley.newRequestQueue(PaymentActivity.this);
             queues.add(loginReq);
         });
-        if (counted < 0){
-            balance.setTextColor(Color.RED);
-            minus.setVisibility(View.VISIBLE);
-            checkOut.setClickable(false);
-            checkOut.setBackgroundColor(Color.GRAY);
-        }
     }
 }

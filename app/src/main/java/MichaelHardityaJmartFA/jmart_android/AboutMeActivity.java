@@ -23,6 +23,9 @@ import MichaelHardityaJmartFA.jmart_android.model.Account;
 import MichaelHardityaJmartFA.jmart_android.request.RegisterStoreRequest;
 import MichaelHardityaJmartFA.jmart_android.request.TopUpRequest;
 
+/**
+ * Activity of user profile, showing profile information
+ */
 public class AboutMeActivity extends AppCompatActivity {
 
     @Override

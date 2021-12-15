@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.MenuItemCompat;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,11 +42,13 @@ import MichaelHardityaJmartFA.jmart_android.model.ProductCategory;
 import MichaelHardityaJmartFA.jmart_android.request.LoginRequest;
 import MichaelHardityaJmartFA.jmart_android.request.RequestFactory;
 
+/**
+ * Main activity, shows the main menu consists of product list, filter, and other menu
+ */
 public class MainActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     private static ArrayList<Product> products= new ArrayList<>();
-    private static final ArrayList<String> productNames = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<Product> adapter;
     private ListView listView;
     private EditText name;
     private EditText minPrice;
@@ -109,18 +113,15 @@ public class MainActivity extends AppCompatActivity {
         Button next = findViewById(R.id.buttonNext);
         Button go = findViewById(R.id.buttonGo);
         listView = findViewById(R.id.product_listview);
-        adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, productNames);
         Response.Listener<String> listener = response -> {
             try {
                 products.clear();
                 JSONArray jsonArray = new JSONArray(response);
                 Type type = new TypeToken<ArrayList<Product>>(){}.getType();
                 products = gson.fromJson(String.valueOf(jsonArray), type);
-                productNames.clear();
-                for (int i = 0; i < products.size(); i++){
-                    productNames.add(products.get(i).name);
-                }
+                adapter = new ArrayAdapter<Product>(getApplicationContext(), R.layout.listview, products);
                 listView.setAdapter(adapter);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         };
         try{
             Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            StringRequest prodReq = RequestFactory.getProduct(0,10,false, false,
+            StringRequest prodReq = RequestFactory.getProduct(0,8,false, false,
                     "","0","0","ALL", listener,errorListener);
             RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
             queues.add(prodReq);
@@ -169,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Cleared!",Toast.LENGTH_LONG).show();
         });
     }
+
+    /**
+     * clear the filter to get product list unfiltered
+     */
     public void resetFilter(){
         name.setText("");
         minPrice.setText("0");
@@ -176,6 +181,11 @@ public class MainActivity extends AppCompatActivity {
         conditionNew.setChecked(false);
         conditionUsed.setChecked(false);
     }
+
+    /**
+     * Populate the product list view by sending ProductRequest,using filter edittexts for parameter
+     * @param page page for paginate
+     */
     public void populateListView(int page){
         Response.Listener<String> listener = response -> {
             try {
@@ -183,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray(response);
                 Type type = new TypeToken<ArrayList<Product>>(){}.getType();
                 products = gson.fromJson(String.valueOf(jsonArray), type);
-                takeName(products);
+                listView.setAdapter(adapter);
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
@@ -191,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         };
         try{
             Response.ErrorListener errorListener = error -> Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-            StringRequest prodReq = RequestFactory.getProduct(page,10,conditionUsed.isChecked(), conditionNew.isChecked(),
+            StringRequest prodReq = RequestFactory.getProduct(page,8,conditionUsed.isChecked(), conditionNew.isChecked(),
                     name.getText().toString(),minPrice.getText().toString(),maxPrice.getText().toString(),catSpinner.getSelectedItem().toString(),
                     listener,errorListener);
             RequestQueue queues = Volley.newRequestQueue(MainActivity.this);
@@ -201,18 +211,28 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Please input all the necessary fields!",Toast.LENGTH_LONG).show();
         }
     }
-    public void takeName(ArrayList<Product> item){
-        productNames.clear();
-        for (int i = 0; i < item.size(); i++){
-            productNames.add(item.get(i).name);
-        }
-        listView.setAdapter(adapter);
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu,menu);
         menu.findItem(R.id.create_product).setVisible(logged.store != null);
+        MenuItem searchViewItem = menu.findItem(R.id.search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchView.clearFocus();
+                name.setText(query);
+                populateListView(0);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -220,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         if(item.getItemId() == R.id.search) {
-            Toast.makeText(this, "use the filter tab pls", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "use the filter tab pls", Toast.LENGTH_SHORT).show();
             return true;
         }
         else if (item.getItemId() == R.id.create_product) {

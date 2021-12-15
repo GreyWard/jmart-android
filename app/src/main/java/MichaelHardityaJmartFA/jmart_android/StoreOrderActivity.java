@@ -36,6 +36,9 @@ import MichaelHardityaJmartFA.jmart_android.request.PaymentCancelRequest;
 import MichaelHardityaJmartFA.jmart_android.request.RequestFactory;
 import MichaelHardityaJmartFA.jmart_android.request.SubmitRequest;
 
+/**
+ * Store order activity, shows store order lists and track its order, only store owner can access this activity
+ */
 public class StoreOrderActivity extends AppCompatActivity {
     private ListView orderList;
     private ListView historyList;
@@ -165,6 +168,11 @@ public class StoreOrderActivity extends AppCompatActivity {
             finish();
         });
     }
+
+    /**
+     * Accepting order method, used to send AcceptRequest
+     * @param id payment identifier number
+     */
     public void acceptOrder(int id){
         Response.Listener<String> listener = response -> {
             Toast.makeText(StoreOrderActivity.this, "Pemesanan Berhasil diterima!", Toast.LENGTH_LONG).show();
@@ -175,6 +183,12 @@ public class StoreOrderActivity extends AppCompatActivity {
         RequestQueue queues = Volley.newRequestQueue(StoreOrderActivity.this);
         queues.add(acceptReq);
     }
+
+    /**
+     * Submitting order method, used to send SubmitRequest
+     * @param id payment identifier number
+     * @param receipt receipt of the order
+     */
     public void submitOrder(int id, String receipt){
         Response.Listener<String> listener = response -> {
             Toast.makeText(StoreOrderActivity.this, "Pemesanan Berhasil submit! Tunggu kurirnya ya!", Toast.LENGTH_LONG).show();
@@ -185,6 +199,11 @@ public class StoreOrderActivity extends AppCompatActivity {
         RequestQueue queues = Volley.newRequestQueue(StoreOrderActivity.this);
         queues.add(submitReq);
     }
+
+    /**
+     * Cancelling order method, used to send PaymentCancelRequest
+     * @param id payment identifier number
+     */
     public void cancelOrder(int id){
         Response.Listener<String> listener = response -> {
             Toast.makeText(StoreOrderActivity.this, "Pemesanan Berhasil di Cancel!", Toast.LENGTH_LONG).show();
@@ -195,6 +214,11 @@ public class StoreOrderActivity extends AppCompatActivity {
         RequestQueue queues = Volley.newRequestQueue(StoreOrderActivity.this);
         queues.add(cancelReq);
     }
+
+    /**
+     * Populate history listview method, updates the history listview by taking history data from the payment data
+     * @param data the payment data
+     */
     public void populateHistoryListView(Payment data){
         ArrayList<String> history = new ArrayList<>();
         for (Payment.Record rec : data.history){
@@ -203,6 +227,11 @@ public class StoreOrderActivity extends AppCompatActivity {
         ArrayAdapter<String> historyAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, history);
         historyList.setAdapter(historyAdapter);
     }
+
+    /**
+     * Populate order listview method, updates the order listview by converting JSONArray response
+     * @param page the page we want to see
+     */
     public void populateOrderListView(int page){
         Response.Listener<String> listener = response -> {
             try {
@@ -228,6 +257,11 @@ public class StoreOrderActivity extends AppCompatActivity {
             Toast.makeText(StoreOrderActivity.this, "Please input all the necessary fields!",Toast.LENGTH_LONG).show();
         }
     }
+
+    /**
+     * Progressbar update method, check the status payment and give a graphical visualization
+     * @param lastLog the last status log
+     */
     public void progressSet(Invoice.Status lastLog){
         switch (lastLog) {
             case WAITING_CONFIRMATION:

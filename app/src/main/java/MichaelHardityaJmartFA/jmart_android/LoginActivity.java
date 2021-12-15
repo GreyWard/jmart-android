@@ -20,6 +20,9 @@ import org.json.JSONObject;
 import MichaelHardityaJmartFA.jmart_android.model.Account;
 import MichaelHardityaJmartFA.jmart_android.request.LoginRequest;
 
+/**
+ * Login activity, to log in before entering the app
+ */
 public class LoginActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     private static Account loggedAccount=null;

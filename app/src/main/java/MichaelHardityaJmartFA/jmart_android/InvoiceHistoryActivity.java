@@ -1,5 +1,6 @@
 package MichaelHardityaJmartFA.jmart_android;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,9 @@ import MichaelHardityaJmartFA.jmart_android.model.Plans;
 import MichaelHardityaJmartFA.jmart_android.request.PaymentCancelRequest;
 import MichaelHardityaJmartFA.jmart_android.request.RequestFactory;
 
+/**
+ * Invoice History activity, shows orders and payments history
+ */
 public class InvoiceHistoryActivity extends AppCompatActivity {
     private ListView invoicesList;
     private  ListView statusList;
@@ -115,7 +119,7 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
             shipmentPlan.setText(Plans.check(payments.get(position).shipment.plan));
             destination.setText(payments.get(position).shipment.address);
             message.setText(payments.get(position).history.get(payments.get(position).history.size()-1).message);
-            progressSet(payments.get(position).history.get(payments.get(position).history.size()-1).status);
+            progressSet(payments.get(position).status);
             if (payments.get(position).status == Invoice.Status.WAITING_CONFIRMATION){
                 cancel.setClickable(true);
                 cancel.setVisibility(View.VISIBLE);
@@ -132,46 +136,49 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         cancel.setOnClickListener(v -> cancelPayment());
 
     }
-
+    /**
+     * Progressbar update method, check the status payment and give a graphical visualization
+     * @param lastLog the last status log
+     */
     public void progressSet(Invoice.Status lastLog){
         switch (lastLog) {
             case WAITING_CONFIRMATION:
                 progress.setProgress(0);
                 labelStatus1.setTextColor(getResources().getColor(R.color.black));
-                labelStatus2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus3.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus4.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus5.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus2.setTextColor(Color.GRAY);
+                labelStatus3.setTextColor(Color.GRAY);
+                labelStatus4.setTextColor(Color.GRAY);
+                labelStatus5.setTextColor(Color.GRAY);
             case ON_PROGRESS:
                 progress.setProgress(25);
-                labelStatus1.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus1.setTextColor(Color.GRAY);
                 labelStatus2.setTextColor(getResources().getColor(R.color.black));
-                labelStatus3.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus4.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus5.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus3.setTextColor(Color.GRAY);
+                labelStatus4.setTextColor(Color.GRAY);
+                labelStatus5.setTextColor(Color.GRAY);
                 break;
             case ON_DELIVERY:
                 progress.setProgress(50);
-                labelStatus1.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus1.setTextColor(Color.GRAY);
+                labelStatus2.setTextColor(Color.GRAY);
                 labelStatus3.setTextColor(getResources().getColor(R.color.black));
-                labelStatus4.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus5.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus4.setTextColor(Color.GRAY);
+                labelStatus5.setTextColor(Color.GRAY);
                 break;
             case DELIVERED:
                 progress.setProgress(75);
-                labelStatus1.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus3.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus1.setTextColor(Color.GRAY);
+                labelStatus2.setTextColor(Color.GRAY);
+                labelStatus3.setTextColor(Color.GRAY);
                 labelStatus4.setTextColor(getResources().getColor(R.color.black));
-                labelStatus5.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus5.setTextColor(Color.GRAY);
                 break;
             case FINISHED:
                 progress.setProgress(100);
-                labelStatus1.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus2.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus3.setTextColor(getResources().getColor(R.color.cardview_dark_background));
-                labelStatus4.setTextColor(getResources().getColor(R.color.cardview_dark_background));
+                labelStatus1.setTextColor(Color.GRAY);
+                labelStatus2.setTextColor(Color.GRAY);
+                labelStatus3.setTextColor(Color.GRAY);
+                labelStatus4.setTextColor(Color.GRAY);
                 labelStatus5.setTextColor(getResources().getColor(R.color.black));
                 break;
             default:
@@ -183,6 +190,10 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
                 labelStatus5.setTextColor(getResources().getColor(R.color.cardview_dark_background));
         }
     }
+
+    /**
+     * Reset the textviews in invoice detail activity
+     */
     public void resetDetails(){
         invoiceId.setText("");
         productId.setText("0");
@@ -191,6 +202,10 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         destination.setText("");
         message.setText("");
     }
+
+    /**
+     * Cancelling payment method, used to call PaymentCancelRequest
+     */
     public void cancelPayment(){
         Response.Listener<String> listener = response -> {
             Toast.makeText(InvoiceHistoryActivity.this, "Pemesanan Berhasil di Cancel!", Toast.LENGTH_LONG).show();
@@ -201,6 +216,11 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         RequestQueue queues = Volley.newRequestQueue(InvoiceHistoryActivity.this);
         queues.add(cancelReq);
     }
+
+    /**
+     * Populate status listview, updates the status listview of the payment
+     * @param history arraylist history of the payment
+     */
     public void populateStatusList(ArrayList<Payment.Record> history){
         paymentStatus.clear();
         for (int i = 0; i < history.size(); i++){

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/**
+ * Receipt activity, to show the receipt in the invoice
+ */
 public class ReceiptActivity extends AppCompatActivity {
 
     @Override

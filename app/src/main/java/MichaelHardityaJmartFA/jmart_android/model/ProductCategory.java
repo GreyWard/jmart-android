@@ -1,5 +1,8 @@
 package MichaelHardityaJmartFA.jmart_android.model;
 
+/**
+ * Product Category class, an enumeration of product category
+ */
 public enum ProductCategory
 {
     ALL,

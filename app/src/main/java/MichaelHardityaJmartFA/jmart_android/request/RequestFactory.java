@@ -5,12 +5,24 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
+/**
+ * Request creator class, used for requests with GET method
+ */
 public class RequestFactory{
     private static final String URL_FORMAT_ID = "http://10.0.2.2:8080/%s/%d";
     private static final String URL_FORMAT_PAGE= "http://10.0.2.2:8080/%s/page?page=%s&pageSize=%s";
     private static final String URL_FORMAT_PRODUCT = "http://10.0.2.2:8080/product/getFiltered?page=%s&pageSize=%s&conditionUsed=%s&conditionNew=%s&search=%s&minPrice=%s&maxPrice=%s&category=%s";
     private static final String URL_FORMAT_PAYMENT = "http://10.0.2.2:8080/payment/getPayment?buyerId=%d&page=%d&pageSize=%d";
     private static final String URL_FORMAT_ORDER = "http://10.0.2.2:8080/payment/getOrder?accountId=%d&page=%d&pageSize=%d";
+
+    /**
+     *
+     * @param parentURI
+     * @param id
+     * @param listener
+     * @param errorListener
+     * @return
+     */
     public static StringRequest getById(
             String parentURI,
             int id,

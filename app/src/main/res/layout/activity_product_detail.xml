@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.107" />
 
     <TextView
         android:id="@+id/label_category"
@@ -30,24 +30,24 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.474" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <TextView
-        android:id="@+id/label_condition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/product_weight"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
         android:gravity="start"
-        android:text="Condition"
+        android:text="Weight"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_category"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toEndOf="@+id/label_weight"
+        app:layout_constraintTop_toBottomOf="@+id/product_condition"
+        app:layout_constraintVertical_bias="0.07" />
 
     <TextView
         android:id="@+id/label_weight"
@@ -58,10 +58,10 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_condition"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintVertical_bias="0.072" />
 
     <TextView
         android:id="@+id/label_price"
@@ -72,10 +72,104 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_weight"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.076" />
+
+    <Button
+        android:id="@+id/button_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_plans"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <TextView
+        android:id="@+id/product_category"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:gravity="start"
+        android:text="Category"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toEndOf="@+id/label_category"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.279" />
+
+    <TextView
+        android:id="@+id/label_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Condition"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_category"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <TextView
+        android:id="@+id/product_shipment_plans"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:gravity="start"
+        android:text="Plans"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.336"
+        app:layout_constraintStart_toEndOf="@+id/label_plans"
+        app:layout_constraintTop_toBottomOf="@+id/product_discount"
+        app:layout_constraintVertical_bias="0.092" />
+
+    <TextView
+        android:id="@+id/product_condition"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:gravity="start"
+        android:text="Condition"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toEndOf="@+id/label_condition"
+        app:layout_constraintTop_toBottomOf="@+id/product_category"
+        app:layout_constraintVertical_bias="0.062" />
+
+    <Button
+        android:id="@+id/button_product_view_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_buy"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_plans"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <TextView
+        android:id="@+id/product_discount"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:gravity="start"
+        android:text="Discount"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toEndOf="@+id/label_discount"
+        app:layout_constraintTop_toBottomOf="@+id/product_price"
+        app:layout_constraintVertical_bias="0.082" />
 
     <TextView
         android:id="@+id/label_discount"
@@ -86,10 +180,10 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_price"
-        app:layout_constraintVertical_bias="0.147" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <TextView
         android:id="@+id/label_plans"
@@ -100,115 +194,23 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_discount"
-        app:layout_constraintVertical_bias="0.17" />
+        app:layout_constraintVertical_bias="0.099" />
 
     <TextView
         android:id="@+id/product_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:gravity="start"
         android:text="Price"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toEndOf="@+id/label_price"
         app:layout_constraintTop_toBottomOf="@+id/product_weight"
-        app:layout_constraintVertical_bias="0.118" />
-
-    <TextView
-        android:id="@+id/product_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Category"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toEndOf="@+id/label_category"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
-
-    <TextView
-        android:id="@+id/product_discount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Discount"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintStart_toEndOf="@+id/label_discount"
-        app:layout_constraintTop_toBottomOf="@+id/product_price"
-        app:layout_constraintVertical_bias="0.15" />
-
-    <TextView
-        android:id="@+id/product_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Weight"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toEndOf="@+id/label_weight"
-        app:layout_constraintTop_toBottomOf="@+id/product_condition"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <TextView
-        android:id="@+id/product_condition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Condition"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toEndOf="@+id/label_condition"
-        app:layout_constraintTop_toBottomOf="@+id/product_category"
-        app:layout_constraintVertical_bias="0.079" />
-
-    <TextView
-        android:id="@+id/product_shipment_plans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Plans"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
-        app:layout_constraintStart_toEndOf="@+id/label_plans"
-        app:layout_constraintTop_toBottomOf="@+id/product_discount"
-        app:layout_constraintVertical_bias="0.17" />
-
-    <Button
-        android:id="@+id/button_buy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_plans"
-        app:layout_constraintVertical_bias="0.51" />
-
-    <Button
-        android:id="@+id/button_product_view_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_buy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_plans" />
+        app:layout_constraintVertical_bias="0.073" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
