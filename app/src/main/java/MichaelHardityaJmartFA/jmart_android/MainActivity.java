@@ -143,14 +143,24 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
         prev.setOnClickListener(v -> {
-            pageText.setText(String.format("%d",Integer.parseInt(pageText.getText().toString())-1));
-            int page = Integer.parseInt(pageText.getText().toString())-1;
-            populateListView(page);
+            int page = Integer.parseInt(pageText.getText().toString()) - 1;
+            if(page == 0){
+                Toast.makeText(MainActivity.this, "Already first page!",Toast.LENGTH_LONG).show();
+            }else {
+                pageText.setText(String.format("%d", Integer.parseInt(pageText.getText().toString()) - 1));
+                page = Integer.parseInt(pageText.getText().toString()) - 1;
+                populateListView(page);
+            }
         });
         next.setOnClickListener(v -> {
-            pageText.setText(String.format("%d",Integer.parseInt(pageText.getText().toString())+1));
-            int page = Integer.parseInt(pageText.getText().toString())-1;
-            populateListView(page);
+            int page;
+            if(products.size()<8){
+                Toast.makeText(MainActivity.this, "Already last page!",Toast.LENGTH_LONG).show();
+            }else{
+                pageText.setText(String.format("%d", Integer.parseInt(pageText.getText().toString()) + 1));
+                page = Integer.parseInt(pageText.getText().toString()) - 1;
+                populateListView(page);
+            }
         });
         go.setOnClickListener(v -> {
             int page = Integer.parseInt(pageText.getText().toString())-1;
@@ -189,11 +199,14 @@ public class MainActivity extends AppCompatActivity {
     public void populateListView(int page){
         Response.Listener<String> listener = response -> {
             try {
-                products.clear();
                 JSONArray jsonArray = new JSONArray(response);
                 Type type = new TypeToken<ArrayList<Product>>(){}.getType();
                 products = gson.fromJson(String.valueOf(jsonArray), type);
+                adapter = new ArrayAdapter<Product>(getApplicationContext(), R.layout.listview, products);
                 listView.setAdapter(adapter);
+                if (products.size() == 0){
+                    Toast.makeText(MainActivity.this, "There is no product in this page "+(page+1),Toast.LENGTH_LONG).show();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
