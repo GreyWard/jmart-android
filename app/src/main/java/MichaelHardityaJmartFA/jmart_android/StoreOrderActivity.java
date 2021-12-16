@@ -107,14 +107,24 @@ public class StoreOrderActivity extends AppCompatActivity {
             startActivity(intent);
         });
         prev.setOnClickListener(v -> {
-            pageText.setText(String.format("%d",Integer.parseInt(pageText.getText().toString())-1));
-            int page = Integer.parseInt(pageText.getText().toString())-1;
-            populateOrderListView(page);
+            int page = Integer.parseInt(pageText.getText().toString()) - 1;
+            if(page == 0){
+                Toast.makeText(StoreOrderActivity.this, "Already first page!",Toast.LENGTH_LONG).show();
+            }else {
+                pageText.setText(String.format("%d", Integer.parseInt(pageText.getText().toString()) - 1));
+                page = Integer.parseInt(pageText.getText().toString()) - 1;
+                populateOrderListView(page);
+            }
         });
         next.setOnClickListener(v -> {
-            pageText.setText(String.format("%d",Integer.parseInt(pageText.getText().toString())+1));
-            int page = Integer.parseInt(pageText.getText().toString())-1;
-            populateOrderListView(page);
+            int page;
+            if(orders.size()<8){
+                Toast.makeText(StoreOrderActivity.this, "Already last page!",Toast.LENGTH_LONG).show();
+            }else{
+                pageText.setText(String.format("%d", Integer.parseInt(pageText.getText().toString()) + 1));
+                page = Integer.parseInt(pageText.getText().toString()) - 1;
+                populateOrderListView(page);
+            }
         });
         go.setOnClickListener(v -> {
             int page = Integer.parseInt(pageText.getText().toString())-1;
@@ -241,6 +251,9 @@ public class StoreOrderActivity extends AppCompatActivity {
                 orders = gson.fromJson(String.valueOf(jsonArray), type);
                 orderAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.listview, orders);
                 orderList.setAdapter(orderAdapter);
+                if (orders.size() == 0){
+                    Toast.makeText(StoreOrderActivity.this, "There is no order in page "+(page+1), Toast.LENGTH_LONG).show();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(StoreOrderActivity.this, "Filter failed", Toast.LENGTH_LONG).show();
